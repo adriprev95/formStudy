@@ -55,7 +55,7 @@
                         <label
                             class=" flex flex-col mx-5 justify-center content-between border-b-2 border-sky-200/40 h-14 my-2">
                             <span class="text-slate-900 font-medium text-lg w-full">Foto:</span>
-                            <input :value="userRegister.file" @change="changeFile()"
+                            <input @change="changeFile($event)"
                                 class="text-lg bg-transparent border-0 focus:outline-none w-full" type="file"
                                 name="picture">
                         </label>
@@ -144,12 +144,16 @@ function registerAlert() {
         Color: ${userRegister.value.color}
         Idioma: ${userRegister.value.idioma}
         Acepto: ${userRegister.value.terminos ? 'si' : 'no'}
+        Foto: ${userRegister.value.file}
         `
     )
 }
 
 function changeFile(e) {
-    console.log(e)
+    if (e.target.files[0]) {
+        userRegister.value.file = URL.createObjectURL(e.target.files[0]);
+        console.log(e.target.files[0]);
+    }
 }
 
 </script>
